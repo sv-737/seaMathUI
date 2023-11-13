@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <v-btn
+        color="primary"
+        :loading="pending"
+        @click="refresh"
+        color="primary"
+        :loading="pending"
+        @click="refresh"
+      >
+        Get Students
+      </v-btn>
+
+      <div
+        color="primary"
+        :loading="pending"
+        @click="refresh"
+        color="primary"
+        :loading="pending"
+        @click="refresh"
+      >
+        {{ data }}
+      </div>
+
+      <div color="primary" :loading="pending" @click="refresh">{{ data }}</div>
+
+      <a
+        href="https://test.com/lorme/loading/loading/loading/loading/loading/loading"
+      >
+        Test Lorem ipsum dolor sit amet.
+      </a>
+    </div>
+  </body>
+</html>
