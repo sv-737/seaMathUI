@@ -71,10 +71,6 @@
     lazy: true,
   })
 
-  const { data: user } = useMdfetch('/user')
-
-  console.log('user :>> ', user)
-
   async function onUpdate() {
     await refresh()
     isDialog.value = false

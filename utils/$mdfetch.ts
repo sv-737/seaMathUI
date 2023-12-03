@@ -21,5 +21,9 @@ export const $mdfetch = $fetch.create({
     if ([500].includes(status)) {
       console.error('[Error]', response.statusText, response._data)
     }
+    if ([401, 419].includes(status)) {
+      useCookie('session').value = null
+      navigateTo('/lc/login', { replace: true })
+    }
   },
 })
