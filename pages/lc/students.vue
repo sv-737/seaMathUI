@@ -7,7 +7,12 @@
       </v-btn>
     </div>
 
-    <v-data-table :headers="headers" :items="data.result" :loading="pending">
+    <v-data-table
+      v-if="data?.result"
+      :headers="headers"
+      :items="data.result"
+      :loading="pending"
+    >
       <template #item.actions="{ item }">
         <v-btn color="primary" variant="tonal" @click="onChange(item)">
           Редактировать
@@ -59,18 +64,16 @@
     },
   ]
 
-  const { data, pending, refresh } = useFetch(
-    'http://seamath.online/api/students',
-    {
-      headers: {
-        Authorization: 'Bearer token',
-      },
-      params: {
-        userName: 'victor_sergienko',
-      },
-      lazy: true,
-    }
-  )
+  const { data, pending, refresh } = useMdfetch('/students', {
+    params: {
+      // userName: 'victor_sergienko',
+    },
+    lazy: true,
+  })
+
+  const { data: user } = useMdfetch('/user')
+
+  console.log('user :>> ', user)
 
   async function onUpdate() {
     await refresh()
@@ -79,7 +82,7 @@
 
   async function onDelete(id) {
     try {
-      await $fetch(`http://94.241.141.121:80/api/student/${id}`, {
+      await $mdfetch(`/api/student/${id}`, {
         method: 'DELETE',
       })
 

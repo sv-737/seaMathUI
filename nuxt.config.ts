@@ -1,6 +1,15 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
+  ssr: false,
+  runtimeConfig: {
+    public: {
+      apiUrl: 'http://seamath.online/api/v1/',
+    },
+  },
+  imports: {
+    dirs: ['./utils'],
+  },
   devtools: {
     enabled: true,
 
@@ -18,6 +27,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@formkit/auto-animate/nuxt',
   ],
   vite: {
     vue: {

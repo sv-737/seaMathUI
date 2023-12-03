@@ -75,15 +75,10 @@ import type { parsePayload } from 'nuxt/dist/app/composables/payload';
 
   async function onSave() {
     try {
-      const url = `http://94.241.141.121:80/api/student${
-        isNew.value ? '' : '/' + props.student.id
-      }`
+      const url = `/student${isNew.value ? '' : '/' + props.student.id}`
 
-      const { result } = await $fetch(url, {
+      const { result } = await $mdfetch(url, {
         method: isNew.value ? 'POST' : 'PUT',
-        headers: {
-          Authorization: 'Bearer token',
-        },
         body: payload,
       })
 
