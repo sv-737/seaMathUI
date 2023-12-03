@@ -1,35 +1,32 @@
 <script setup>
-  import { useAuth } from '~/composables/useAuth'
-
   definePageMeta({
     layout: 'empty',
   })
 
-  const { login } = useAuth()
+  const { login, activateSession } = useAuth()
   const router = useRouter()
   const nickname = ref('evgendeveloper')
   const isLoadedSpline = ref(false)
   const isActivateStep = ref(false)
   const isError = ref(false)
   const errorText = ref('')
-  const session = useCookie('session')
-  const previewSession = ref(null)
+  const token = ref('')
+  const previewSession = computed(() => token.value.split('-').shift())
   const timeoutCron = 2 * 60 * 1000
   let cronCheckActiveState
   let timeoutClearCron
 
   async function onLogin() {
     try {
-      const { token, active } = await login({ login: nickname.value })
+      const res = await login({ login: nickname.value })
 
-      previewSession.value = token.split('-').shift()
-      session.value = token
+      token.value = res.token
       isActivateStep.value = true
 
       cronCheckActiveState = setInterval(checkActiveState, 2000)
       timeoutClearCron = setTimeout(clearCron, timeoutCron)
 
-      console.log('r :>> ', active)
+      console.log('r :>> ', res)
     } catch (e) {
       console.error(e)
       if (e.response) {
@@ -43,12 +40,7 @@
 
   async function checkActiveState() {
     try {
-      const res = await $mdfetch('/auth/state', {
-        method: 'POST',
-        body: {
-          token: session.value,
-        },
-      })
+      const res = await activateSession(token.value)
 
       if (res) {
         clearCron()
@@ -62,6 +54,11 @@
   function clearCron() {
     if (cronCheckActiveState) clearInterval(cronCheckActiveState)
     if (timeoutClearCron) clearTimeout(timeoutClearCron)
+  }
+
+  function onBack() {
+    isActivateStep.value = false
+    clearCron()
   }
 
   function onLoad() {
@@ -148,7 +145,7 @@
                     class="text-none"
                     variant="text"
                     size="large"
-                    @click="isActivateStep = false"
+                    @click="onBack"
                   >
                     Назад
                   </v-btn>
