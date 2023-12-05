@@ -1,0 +1,14 @@
+name: Deploy UI develop env
+
+on:
+  push:
+    branches: [ "dev", "github-actions" ]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, dev]
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: docker-compose
+        run: docker-compose -f docker-compose.dev.yml up --build
