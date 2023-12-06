@@ -6,8 +6,17 @@ on:
     branches: [ "dev", "github-actions" ]
 
 jobs:
+  prepare-environment:
+    runs-on: [self-hosted, dev]
+    steps:
+      - name: Stop and remove containers, networks
+        run: docker-compose -f docker-compose.dev.yml down
+      - name: Remove unused data
+        run: docker system prune -f
+
   deploy:
     runs-on: [self-hosted, dev]
+    needs: prepare-environment
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
