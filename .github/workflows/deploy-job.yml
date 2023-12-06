@@ -6,19 +6,19 @@ on:
     branches: [ "dev", "github-actions" ]
 
 jobs:
-#  prepare-environment:
-#    runs-on: [self-hosted, dev]
-#    steps:
-#      - name: Stop and remove containers, networks
-#        run: docker-compose -f docker-compose.dev.yml down
-#      - name: Remove unused data
-#        run: docker system prune -f
-#      - name: remove old data
-#        run: sudo rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
+  prepare-environment:
+    runs-on: [self-hosted, dev]
+    steps:
+      - name: Stop and remove containers, networks
+        run: docker-compose -f docker-compose.dev.yml down
+      - name: Remove unused data
+        run: docker system prune -f
+      - name: remove old data
+        run: /rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
 
   deploy:
     runs-on: [self-hosted, dev]
-#    needs: prepare-environment
+    needs: prepare-environment
     steps:
 #      - name: remove old data
 #        run:  /bin/rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
