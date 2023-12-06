@@ -13,15 +13,15 @@ jobs:
         run: docker-compose -f docker-compose.dev.yml down
       - name: Remove unused data
         run: docker system prune -f
-      - name: remove old data
-        run: sudo rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
+#      - name: remove old data
+#        run: sudo rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
 
   deploy:
     runs-on: [self-hosted, dev]
 #    needs: prepare-environment
     steps:
       - name: remove old data
-        run: echo 'userdocker' | sudo -S rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
+        run:  rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
       - name: checkout repo
         uses: actions/checkout@v3
       - name: docker-compose
