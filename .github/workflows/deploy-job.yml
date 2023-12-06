@@ -18,7 +18,7 @@ jobs:
 
   deploy:
     runs-on: [self-hosted, dev]
-    needs: prepare-environment
+#    needs: prepare-environment
     steps:
 #      - name: remove old data
 #        run:  /bin/rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
