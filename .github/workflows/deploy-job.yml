@@ -6,13 +6,13 @@ on:
     branches: [ "dev", "github-actions" ]
 
 jobs:
-  prepare-environment:
-    runs-on: [self-hosted, dev]
-    steps:
-      - name: Stop and remove containers, networks
-        run: docker-compose -f docker-compose.dev.yml down
-      - name: Remove unused data
-        run: docker system prune -f
+#  prepare-environment:
+#    runs-on: [self-hosted, dev]
+#    steps:
+#      - name: Stop and remove containers, networks
+#        run: docker-compose -f docker-compose.dev.yml down
+#      - name: Remove unused data
+#        run: docker system prune -f
 #      - name: remove old data
 #        run: sudo rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
 
@@ -20,8 +20,8 @@ jobs:
     runs-on: [self-hosted, dev]
 #    needs: prepare-environment
     steps:
-      - name: remove old data
-        run:  /bin/rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
+#      - name: remove old data
+#        run:  /bin/rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
       - name: checkout repo
         uses: actions/checkout@v3
       - name: docker-compose
