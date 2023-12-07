@@ -3,7 +3,7 @@ name: Deploy UI develop env
 
 on:
   push:
-    branches: [ "dev", "github-actions" ]
+    branches: [ "dev" ]
 
 jobs:
   prepare-environment:
@@ -14,14 +14,12 @@ jobs:
       - name: Remove unused data
         run: docker system prune -f
 #      - name: remove old data
-#        run: /rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
+#        run: rm -r /actions-runner-ui/_work/seaMathUI/
 
   deploy:
     runs-on: [self-hosted, fe]
     needs: prepare-environment
     steps:
-#      - name: remove old data
-#        run:  /bin/rm -r /actions-runner-ui/_work/seaMathUI/seaMathUI
       - name: checkout repo
         uses: actions/checkout@v3
       - name: docker-compose
