@@ -7,7 +7,7 @@ on:
 
 jobs:
   prepare-environment:
-    runs-on: [self-hosted, fe]
+    runs-on: [self-hosted, dev]
     steps:
       - name: Stop and remove containers, networks
         run: docker-compose -f docker-compose.dev.yml down
@@ -17,7 +17,7 @@ jobs:
 #        run: rm -r /actions-runner-ui/_work/seaMathUI/
 
   deploy:
-    runs-on: [self-hosted, fe]
+    runs-on: [self-hosted, dev]
     needs: prepare-environment
     steps:
       - name: checkout repo
@@ -26,7 +26,7 @@ jobs:
         run: docker-compose -f docker-compose.dev.yml up --build -d
 
   connectToNetwork:
-    runs-on: [ self-hosted, fe ]
+    runs-on: [ self-hosted, dev ]
     needs: deploy
     steps:
       - name: connect ui to network
