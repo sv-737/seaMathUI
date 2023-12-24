@@ -26,6 +26,19 @@
     }),
   })
 
+  // TODO:  add a check for schedule changes
+  watch(schedule, (newSchedule) => {
+    // Work with source events ->
+    // const source = calendar.getEventSourceById(1)
+    // if (source) source.remove()
+    // calendar.addEventSource({
+    //   id: 1,
+    //   events: newSchedule,
+    // })
+
+    calendar.setOption('events', newSchedule)
+  })
+
   const { data: businessHours } = useMdfetch('/working-hours', {
     lazy: true,
     transform: (res) => {
@@ -35,28 +48,11 @@
         endTime: i.endTime,
       }))
     },
-    default: () => ({
-      result: [],
-    }),
+    default: () => [],
   })
 
-  // TODO:  find a normal solution to update the schedule + add a check for schedule changes
   watch(businessHours, (data) => {
     calendar.setOption('businessHours', data)
-  })
-
-  // TODO:  find a normal solution to update the schedule + add a check for schedule changes
-  watch(schedule, (newSchedule) => {
-    const source = calendar.getEventSourceById(1)
-
-    if (source) source.remove()
-
-    // calendar.addEventSource({
-    //   id: 1,
-    //   events: newSchedule,
-    // })
-
-    calendar.setOption('events', newSchedule)
   })
 
   function onChangeLesson(student) {
