@@ -1,6 +1,7 @@
 version: '3'
 services:
-  seamath-frontend:
+  seamath-frontend-dev:
+    container_name: seamath-frontend-dev
     build:
       context: .
     ports:
