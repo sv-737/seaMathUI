@@ -72,7 +72,7 @@
 
   async function onDelete(id) {
     try {
-      await $mdfetch(`/api/student/${id}`, {
+      await $mdfetch(`/student/${id}`, {
         method: 'DELETE',
       })
 
