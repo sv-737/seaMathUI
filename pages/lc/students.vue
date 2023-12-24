@@ -29,7 +29,6 @@
       :student="currentStudent"
       @changed="onUpdate"
     />
-    <!-- <pre>{{ data }}</pre> -->
   </div>
 </template>
 
@@ -64,12 +63,7 @@
     },
   ]
 
-  const { data, pending, refresh } = useMdfetch('/students', {
-    params: {
-      // userName: 'victor_sergienko',
-    },
-    lazy: true,
-  })
+  const { data, pending, refresh } = useMdfetch('/students', { lazy: true })
 
   async function onUpdate() {
     await refresh()
